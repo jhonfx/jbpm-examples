@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<definitions id="Definition"
+             targetNamespace="http://www.jboss.org/drools"
+             typeLanguage="http://www.java.com/javaTypes"
+             expressionLanguage="http://www.mvel.org/2.0"
+             xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd"
+             xmlns:g="http://www.jboss.org/drools/flow/gpd"
+             xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+             xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
+             xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
+             xmlns:tns="http://www.jboss.org/drools">
+
+  <itemDefinition id="_moneyItem" structureRef="Integer" />
+  <itemDefinition id="_recargosItem" structureRef="Integer" />
+
+  <process processType="Private" isExecutable="true" id="com.sample.bpmn.hello" name="Hello World" >
+
+    <!-- process variables -->
+    <property id="money" itemSubjectRef="_moneyItem"/>
+    <property id="recargos" itemSubjectRef="_recargosItem"/>
+
+    <!-- nodes -->
+    <startEvent id="_1" name="StartProcess" />
+    <exclusiveGateway id="_4" name="Gateway" gatewayDirection="Diverging" />
+    <scriptTask id="_5" name="firstclass" >
+      <script>System.out.println("We are flying in First class");</script>
+    </scriptTask>
+    <scriptTask id="_6" name="economy" >
+      <script>System.out.println("We are flying in Economy class");</script>
+    </scriptTask>
+    <scriptTask id="_10" name="Iva" >
+      <script>System.out.println("cargo por impuestos" + (money + recargos));</script>
+    </scriptTask>
+    <scriptTask id="_11" name="NoIva" >
+      <script>System.out.println("No pagare iva")</script>
+    </scriptTask>
+    <parallelGateway id="_12" name="Gateway" gatewayDirection="Converging" />
+    <endEvent id="_13" name="End" >
+        <terminateEventDefinition/>
+    </endEvent>
+
+    <!-- connections -->
+    <sequenceFlow id="_1-_4" sourceRef="_1" targetRef="_4" />
+    <sequenceFlow id="_4-_5" sourceRef="_4" targetRef="_5" name="constraint_firstclass" tns:priority="1" >
+      <conditionExpression xsi:type="tFormalExpression" >return money &gt; 1000;</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_4-_6" sourceRef="_4" targetRef="_6" name="constraint_economy" tns:priority="1" >
+      <conditionExpression xsi:type="tFormalExpression" >return money &lt;= 1000;</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_5-_10" sourceRef="_5" targetRef="_10" />
+    <sequenceFlow id="_6-_11" sourceRef="_6" targetRef="_11" />
+    <sequenceFlow id="_10-_12" sourceRef="_10" targetRef="_12" />
+    <sequenceFlow id="_11-_12" sourceRef="_11" targetRef="_12" />
+    <sequenceFlow id="_12-_13" sourceRef="_12" targetRef="_13" />
+
+  </process>
+
+  <bpmndi:BPMNDiagram>
+    <bpmndi:BPMNPlane bpmnElement="com.sample.bpmn.hello" >
+      <bpmndi:BPMNShape bpmnElement="_1" >
+        <dc:Bounds x="203" y="62" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_4" >
+        <dc:Bounds x="203" y="144" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_5" >
+        <dc:Bounds x="64" y="255" width="80" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_6" >
+        <dc:Bounds x="316" y="256" width="80" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_10" >
+        <dc:Bounds x="64" y="349" width="80" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_11" >
+        <dc:Bounds x="318" y="348" width="80" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_12" >
+        <dc:Bounds x="210" y="429" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_13" >
+        <dc:Bounds x="215" y="531" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="_1-_4" >
+        <di:waypoint x="227" y="86" />
+        <di:waypoint x="227" y="168" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_4-_5" >
+        <di:waypoint x="227" y="168" />
+        <di:waypoint x="102" y="167" />
+        <di:waypoint x="104" y="279" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_4-_6" >
+        <di:waypoint x="227" y="168" />
+        <di:waypoint x="353" y="170" />
+        <di:waypoint x="356" y="280" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_5-_10" >
+        <di:waypoint x="104" y="279" />
+        <di:waypoint x="104" y="373" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_6-_11" >
+        <di:waypoint x="356" y="280" />
+        <di:waypoint x="358" y="372" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_10-_12" >
+        <di:waypoint x="104" y="373" />
+        <di:waypoint x="234" y="453" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_11-_12" >
+        <di:waypoint x="358" y="372" />
+        <di:waypoint x="234" y="453" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_12-_13" >
+        <di:waypoint x="234" y="453" />
+        <di:waypoint x="239" y="555" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+
+</definitions>

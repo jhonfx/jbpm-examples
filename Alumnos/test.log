@@ -1,0 +1,177 @@
+<object-stream>
+<org.drools.audit.event.RuleFlowVariableLogEvent>
+  <type>32</type>
+  <processId>com.sample.bpmn.hello</processId>
+  <processName>Hello World</processName>
+  <processInstanceId>1</processInstanceId>
+  <variableId>nombre</variableId>
+  <variableInstanceId>nombre</variableInstanceId>
+  <objectToString>Mario</objectToString>
+</org.drools.audit.event.RuleFlowVariableLogEvent>
+<org.drools.audit.event.RuleFlowVariableLogEvent>
+  <type>33</type>
+  <processId>com.sample.bpmn.hello</processId>
+  <processName>Hello World</processName>
+  <processInstanceId>1</processInstanceId>
+  <variableId>nombre</variableId>
+  <variableInstanceId>nombre</variableInstanceId>
+  <objectToString>Mario</objectToString>
+</org.drools.audit.event.RuleFlowVariableLogEvent>
+<org.drools.audit.event.RuleFlowVariableLogEvent>
+  <type>32</type>
+  <processId>com.sample.bpmn.hello</processId>
+  <processName>Hello World</processName>
+  <processInstanceId>1</processInstanceId>
+  <variableId>grupo</variableId>
+  <variableInstanceId>grupo</variableInstanceId>
+  <objectToString>B</objectToString>
+</org.drools.audit.event.RuleFlowVariableLogEvent>
+<org.drools.audit.event.RuleFlowVariableLogEvent>
+  <type>33</type>
+  <processId>com.sample.bpmn.hello</processId>
+  <processName>Hello World</processName>
+  <processInstanceId>1</processInstanceId>
+  <variableId>grupo</variableId>
+  <variableInstanceId>grupo</variableInstanceId>
+  <objectToString>B</objectToString>
+</org.drools.audit.event.RuleFlowVariableLogEvent>
+<org.drools.audit.event.RuleFlowVariableLogEvent>
+  <type>32</type>
+  <processId>com.sample.bpmn.hello</processId>
+  <processName>Hello World</processName>
+  <processInstanceId>1</processInstanceId>
+  <variableId>materia</variableId>
+  <variableInstanceId>materia</variableInstanceId>
+  <objectToString>Matematicas</objectToString>
+</org.drools.audit.event.RuleFlowVariableLogEvent>
+<org.drools.audit.event.RuleFlowVariableLogEvent>
+  <type>33</type>
+  <processId>com.sample.bpmn.hello</processId>
+  <processName>Hello World</processName>
+  <processInstanceId>1</processInstanceId>
+  <variableId>materia</variableId>
+  <variableInstanceId>materia</variableInstanceId>
+  <objectToString>Matematicas</objectToString>
+</org.drools.audit.event.RuleFlowVariableLogEvent>
+<org.drools.audit.event.RuleFlowVariableLogEvent>
+  <type>32</type>
+  <processId>com.sample.bpmn.hello</processId>
+  <processName>Hello World</processName>
+  <processInstanceId>1</processInstanceId>
+  <variableId>edad</variableId>
+  <variableInstanceId>edad</variableInstanceId>
+  <objectToString>57</objectToString>
+</org.drools.audit.event.RuleFlowVariableLogEvent>
+<org.drools.audit.event.RuleFlowVariableLogEvent>
+  <type>33</type>
+  <processId>com.sample.bpmn.hello</processId>
+  <processName>Hello World</processName>
+  <processInstanceId>1</processInstanceId>
+  <variableId>edad</variableId>
+  <variableInstanceId>edad</variableInstanceId>
+  <objectToString>57</objectToString>
+</org.drools.audit.event.RuleFlowVariableLogEvent>
+<org.drools.audit.event.RuleFlowVariableLogEvent>
+  <type>32</type>
+  <processId>com.sample.bpmn.hello</processId>
+  <processName>Hello World</processName>
+  <processInstanceId>1</processInstanceId>
+  <variableId>cal</variableId>
+  <variableInstanceId>cal</variableInstanceId>
+  <objectToString>5.0</objectToString>
+</org.drools.audit.event.RuleFlowVariableLogEvent>
+<org.drools.audit.event.RuleFlowVariableLogEvent>
+  <type>33</type>
+  <processId>com.sample.bpmn.hello</processId>
+  <processName>Hello World</processName>
+  <processInstanceId>1</processInstanceId>
+  <variableId>cal</variableId>
+  <variableInstanceId>cal</variableInstanceId>
+  <objectToString>5.0</objectToString>
+</org.drools.audit.event.RuleFlowVariableLogEvent>
+<org.drools.audit.event.RuleFlowVariableLogEvent>
+  <type>32</type>
+  <processId>com.sample.bpmn.hello</processId>
+  <processName>Hello World</processName>
+  <processInstanceId>1</processInstanceId>
+  <variableId>grado</variableId>
+  <variableInstanceId>grado</variableInstanceId>
+  <objectToString>3er</objectToString>
+</org.drools.audit.event.RuleFlowVariableLogEvent>
+<org.drools.audit.event.RuleFlowVariableLogEvent>
+  <type>33</type>
+  <processId>com.sample.bpmn.hello</processId>
+  <processName>Hello World</processName>
+  <processInstanceId>1</processInstanceId>
+  <variableId>grado</variableId>
+  <variableInstanceId>grado</variableInstanceId>
+  <objectToString>3er</objectToString>
+</org.drools.audit.event.RuleFlowVariableLogEvent>
+<org.drools.audit.event.RuleFlowLogEvent>
+  <type>8</type>
+  <processId>com.sample.bpmn.hello</processId>
+  <processName>Hello World</processName>
+  <processInstanceId>1</processInstanceId>
+</org.drools.audit.event.RuleFlowLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>24</type>
+  <processId>com.sample.bpmn.hello</processId>
+  <processName>Hello World</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>1</nodeId>
+  <nodeName>StartProcess</nodeName>
+  <nodeInstanceId>0</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>26</type>
+  <processId>com.sample.bpmn.hello</processId>
+  <processName>Hello World</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>1</nodeId>
+  <nodeName>StartProcess</nodeName>
+  <nodeInstanceId>0</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>24</type>
+  <processId>com.sample.bpmn.hello</processId>
+  <processName>Hello World</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>3</nodeId>
+  <nodeName>Alumno</nodeName>
+  <nodeInstanceId>1</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>25</type>
+  <processId>com.sample.bpmn.hello</processId>
+  <processName>Hello World</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>3</nodeId>
+  <nodeName>Alumno</nodeName>
+  <nodeInstanceId>1</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>27</type>
+  <processId>com.sample.bpmn.hello</processId>
+  <processName>Hello World</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>1</nodeId>
+  <nodeName>StartProcess</nodeName>
+  <nodeInstanceId>0</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowNodeLogEvent>
+  <type>25</type>
+  <processId>com.sample.bpmn.hello</processId>
+  <processName>Hello World</processName>
+  <processInstanceId>1</processInstanceId>
+  <nodeId>1</nodeId>
+  <nodeName>StartProcess</nodeName>
+  <nodeInstanceId>0</nodeInstanceId>
+</org.drools.audit.event.RuleFlowNodeLogEvent>
+<org.drools.audit.event.RuleFlowLogEvent>
+  <type>9</type>
+  <processId>com.sample.bpmn.hello</processId>
+  <processName>Hello World</processName>
+  <processInstanceId>1</processInstanceId>
+</org.drools.audit.event.RuleFlowLogEvent>
+</object-stream>
+</object-stream>

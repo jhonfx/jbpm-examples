@@ -1,0 +1,428 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<definitions id="Definition"
+             targetNamespace="http://www.jboss.org/drools"
+             typeLanguage="http://www.java.com/javaTypes"
+             expressionLanguage="http://www.mvel.org/2.0"
+             xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd"
+             xmlns:g="http://www.jboss.org/drools/flow/gpd"
+             xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+             xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
+             xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
+             xmlns:tns="http://www.jboss.org/drools">
+
+  <itemDefinition id="_mapItem" structureRef="java.util.HashMap" />
+  <itemDefinition id="_modelNumberItem" structureRef="java.lang.String" />
+  <itemDefinition id="_quantityItem" structureRef="java.lang.String" />
+  <itemDefinition id="_priorityItem" structureRef="java.lang.String" />
+  <itemDefinition id="_isAvailableItem" structureRef="Boolean" />
+  <itemDefinition id="_amtItem" />
+
+  <process processType="Private" isExecutable="true" id="HumanTaskExternalUI" name="HTFormVariablesSample" >
+
+    <!-- process variables -->
+    <property id="map" itemSubjectRef="_mapItem"/>
+    <property id="modelNumber" itemSubjectRef="_modelNumberItem"/>
+    <property id="quantity" itemSubjectRef="_quantityItem"/>
+    <property id="priority" itemSubjectRef="_priorityItem"/>
+    <property id="isAvailable" itemSubjectRef="_isAvailableItem"/>
+    <property id="amt" itemSubjectRef="_amtItem"/>
+
+    <!-- nodes -->
+    <startEvent id="_1" name="StartProcess" />
+    <userTask id="_3" name="Sales-Rep Task" >
+      <ioSpecification>
+        <dataInput id="_3_ContentInput" name="Content" />
+        <dataInput id="_3_CommentInput" name="Comment" />
+        <dataInput id="_3_SkippableInput" name="Skippable" />
+        <dataInput id="_3_TaskNameInput" name="TaskName" />
+        <dataInput id="_3_PriorityInput" name="Priority" />
+        <dataOutput id="_3_priorityOutput" name="priority" />
+        <dataOutput id="_3_quantityOutput" name="quantity" />
+        <dataOutput id="_3_modelNumberOutput" name="modelNumber" />
+        <inputSet>
+          <dataInputRefs>_3_ContentInput</dataInputRefs>
+          <dataInputRefs>_3_CommentInput</dataInputRefs>
+          <dataInputRefs>_3_SkippableInput</dataInputRefs>
+          <dataInputRefs>_3_TaskNameInput</dataInputRefs>
+          <dataInputRefs>_3_PriorityInput</dataInputRefs>
+        </inputSet>
+        <outputSet>
+          <dataOutputRefs>_3_priorityOutput</dataOutputRefs>
+          <dataOutputRefs>_3_quantityOutput</dataOutputRefs>
+          <dataOutputRefs>_3_modelNumberOutput</dataOutputRefs>
+        </outputSet>
+      </ioSpecification>
+      <dataInputAssociation>
+        <sourceRef>map</sourceRef>
+        <targetRef>_3_ContentInput</targetRef>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_3_CommentInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">Please create an order.</from>
+          <to xsi:type="tFormalExpression">_3_CommentInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_3_SkippableInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">false</from>
+          <to xsi:type="tFormalExpression">_3_SkippableInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_3_TaskNameInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">ProcessOrder</from>
+          <to xsi:type="tFormalExpression">_3_TaskNameInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_3_PriorityInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression"></from>
+          <to xsi:type="tFormalExpression">_3_PriorityInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataOutputAssociation>
+        <sourceRef>_3_priorityOutput</sourceRef>
+        <targetRef>priority</targetRef>
+      </dataOutputAssociation>
+      <dataOutputAssociation>
+        <sourceRef>_3_quantityOutput</sourceRef>
+        <targetRef>quantity</targetRef>
+      </dataOutputAssociation>
+      <dataOutputAssociation>
+        <sourceRef>_3_modelNumberOutput</sourceRef>
+        <targetRef>modelNumber</targetRef>
+      </dataOutputAssociation>
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>krisv</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+    </userTask>
+    <endEvent id="_5" name="EndProcess" >
+        <terminateEventDefinition/>
+    </endEvent>
+    <scriptTask id="_6" name="PreProcess" scriptFormat="http://www.java.com/java" >
+      <script>map = new java.util.HashMap();
+
+
+map.put("priority",priority);
+map.put("modelNumber",modelNumber);
+map.put("quantity",quantity);
+map.put("amt",amt);
+
+kcontext.setVariable("map", map);
+
+
+
+</script>
+    </scriptTask>
+    <exclusiveGateway id="_8" name="Gateway" gatewayDirection="Diverging" />
+    <userTask id="_9" name="Manager" >
+      <ioSpecification>
+        <dataInput id="_9_ContentInput" name="Content" />
+        <dataInput id="_9_CommentInput" name="Comment" />
+        <dataInput id="_9_SkippableInput" name="Skippable" />
+        <dataInput id="_9_TaskNameInput" name="TaskName" />
+        <dataInput id="_9_PriorityInput" name="Priority" />
+        <inputSet>
+          <dataInputRefs>_9_ContentInput</dataInputRefs>
+          <dataInputRefs>_9_CommentInput</dataInputRefs>
+          <dataInputRefs>_9_SkippableInput</dataInputRefs>
+          <dataInputRefs>_9_TaskNameInput</dataInputRefs>
+          <dataInputRefs>_9_PriorityInput</dataInputRefs>
+        </inputSet>
+        <outputSet>
+        </outputSet>
+      </ioSpecification>
+      <dataInputAssociation>
+        <sourceRef>map</sourceRef>
+        <targetRef>_9_ContentInput</targetRef>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_9_CommentInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">Sample Arroval task</from>
+          <to xsi:type="tFormalExpression">_9_CommentInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_9_SkippableInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">false</from>
+          <to xsi:type="tFormalExpression">_9_SkippableInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_9_TaskNameInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">managerTask</from>
+          <to xsi:type="tFormalExpression">_9_TaskNameInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_9_PriorityInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression"></from>
+          <to xsi:type="tFormalExpression">_9_PriorityInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>john</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+    </userTask>
+    <scriptTask id="_10" name="ModifyOrder" scriptFormat="http://www.java.com/java" >
+      <script>System.out.println("*********Modifying the order");
+
+map = new java.util.HashMap();
+
+
+map.put("modelNumber",modelNumber);
+map.put("priority",priority);
+map.put("quantity",quantity);
+map.put("amt",amt);
+kcontext.setVariable("map", map);</script>
+    </scriptTask>
+    <scriptTask id="_11" name="Pre-Approve Process" scriptFormat="http://www.java.com/java" >
+      <script>System.out.println("*********approving the order ");
+
+System.out.println("*********before second approval : quantity " +quantity);
+
+map = new java.util.HashMap();
+
+
+map.put("modelNumber",modelNumber);
+map.put("priority",priority);
+map.put("quantity",quantity);
+map.put("amt",amt);
+kcontext.setVariable("map", map);</script>
+    </scriptTask>
+    <exclusiveGateway id="_12" name="Gateway" gatewayDirection="Converging" />
+    <scriptTask id="_13" name="Check Quantity" scriptFormat="http://www.java.com/java" >
+      <script>
+int qnt = java.lang.Integer.parseInt(quantity);
+
+if ( qnt &gt; 1000)
+ isAvailable = false;
+else
+ isAvailable = true;
+ 
+ kcontext.setVariable("isAvailable",isAvailable);
+System.out.println("***After process order HT, Quantity: " +qnt +" isAvailable condition: " +isAvailable);</script>
+    </scriptTask>
+    <scriptTask id="_14" name="Pre-ApproveProcess" >
+      <script>System.out.println("*********approving the order ");
+
+System.out.println("*********before second approval : quantity " +quantity);
+
+map = new java.util.HashMap();
+
+
+map.put("modelNumber",modelNumber);
+map.put("priority",priority);
+map.put("quantity",quantity);
+map.put("amt",amt);
+kcontext.setVariable("map", map);</script>
+    </scriptTask>
+    <userTask id="_15" name="Accountant" >
+      <ioSpecification>
+        <dataInput id="_15_ContentInput" name="Content" />
+        <dataInput id="_15_CommentInput" name="Comment" />
+        <dataInput id="_15_SkippableInput" name="Skippable" />
+        <dataInput id="_15_TaskNameInput" name="TaskName" />
+        <dataInput id="_15_ContentInput" name="Content" />
+        <dataInput id="_15_PriorityInput" name="Priority" />
+        <inputSet>
+          <dataInputRefs>_15_ContentInput</dataInputRefs>
+          <dataInputRefs>_15_CommentInput</dataInputRefs>
+          <dataInputRefs>_15_SkippableInput</dataInputRefs>
+          <dataInputRefs>_15_TaskNameInput</dataInputRefs>
+          <dataInputRefs>_15_ContentInput</dataInputRefs>
+          <dataInputRefs>_15_PriorityInput</dataInputRefs>
+        </inputSet>
+        <outputSet>
+        </outputSet>
+      </ioSpecification>
+      <dataInputAssociation>
+        <sourceRef>map</sourceRef>
+        <targetRef>_15_ContentInput</targetRef>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_15_CommentInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">Sample Account Process</from>
+          <to xsi:type="tFormalExpression">_15_CommentInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_15_SkippableInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">false</from>
+          <to xsi:type="tFormalExpression">_15_SkippableInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_15_TaskNameInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression">accTask</from>
+          <to xsi:type="tFormalExpression">_15_TaskNameInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_15_ContentInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression"></from>
+          <to xsi:type="tFormalExpression">_15_ContentInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <dataInputAssociation>
+        <targetRef>_15_PriorityInput</targetRef>
+        <assignment>
+          <from xsi:type="tFormalExpression"></from>
+          <to xsi:type="tFormalExpression">_15_PriorityInput</to>
+        </assignment>
+      </dataInputAssociation>
+      <potentialOwner>
+        <resourceAssignmentExpression>
+          <formalExpression>mary</formalExpression>
+        </resourceAssignmentExpression>
+      </potentialOwner>
+    </userTask>
+    <parallelGateway id="_19" name="Gateway" gatewayDirection="Diverging" />
+    <endEvent id="_18" name="End" >
+        <terminateEventDefinition/>
+    </endEvent>
+
+    <!-- connections -->
+    <sequenceFlow id="_12-_3" sourceRef="_12" targetRef="_3" />
+    <sequenceFlow id="_15-_5" sourceRef="_15" targetRef="_5" />
+    <sequenceFlow id="_1-_6" sourceRef="_1" targetRef="_6" />
+    <sequenceFlow id="_13-_8" sourceRef="_13" targetRef="_8" />
+    <sequenceFlow id="_11-_9" sourceRef="_11" targetRef="_9" />
+    <sequenceFlow id="_8-_10" sourceRef="_8" targetRef="_10" name="Modify" >
+      <conditionExpression xsi:type="tFormalExpression" language="http://www.java.com/java" >return (!isAvailable);</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_19-_11" sourceRef="_19" targetRef="_11" />
+    <sequenceFlow id="_10-_12" sourceRef="_10" targetRef="_12" />
+    <sequenceFlow id="_6-_12" sourceRef="_6" targetRef="_12" />
+    <sequenceFlow id="_3-_13" sourceRef="_3" targetRef="_13" />
+    <sequenceFlow id="_19-_14" sourceRef="_19" targetRef="_14" />
+    <sequenceFlow id="_14-_15" sourceRef="_14" targetRef="_15" />
+    <sequenceFlow id="_8-_19" sourceRef="_8" targetRef="_19" name="Available" tns:priority="1" >
+      <conditionExpression xsi:type="tFormalExpression" language="http://www.jboss.org/drools/rule" >return (isAvailable);</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_9-_18" sourceRef="_9" targetRef="_18" />
+
+  </process>
+
+  <bpmndi:BPMNDiagram>
+    <bpmndi:BPMNPlane bpmnElement="HumanTaskExternalUI" >
+      <bpmndi:BPMNShape bpmnElement="_1" >
+        <dc:Bounds x="3" y="163" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_3" >
+        <dc:Bounds x="313" y="168" width="121" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_5" >
+        <dc:Bounds x="1052" y="79" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_6" >
+        <dc:Bounds x="74" y="167" width="80" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_8" >
+        <dc:Bounds x="670" y="170" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_9" >
+        <dc:Bounds x="910" y="264" width="129" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_10" >
+        <dc:Bounds x="419" y="291" width="97" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_11" >
+        <dc:Bounds x="788" y="265" width="89" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_12" >
+        <dc:Bounds x="177" y="163" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_13" >
+        <dc:Bounds x="486" y="167" width="104" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_14" >
+        <dc:Bounds x="805" y="85" width="80" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_15" >
+        <dc:Bounds x="923" y="83" width="100" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_19" >
+        <dc:Bounds x="763" y="163" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_18" >
+        <dc:Bounds x="1059" y="260" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="_12-_3" >
+        <di:waypoint x="201" y="187" />
+        <di:waypoint x="373" y="192" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_15-_5" >
+        <di:waypoint x="973" y="107" />
+        <di:waypoint x="1076" y="103" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_1-_6" >
+        <di:waypoint x="27" y="187" />
+        <di:waypoint x="114" y="191" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_13-_8" >
+        <di:waypoint x="538" y="191" />
+        <di:waypoint x="694" y="194" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_11-_9" >
+        <di:waypoint x="832" y="289" />
+        <di:waypoint x="974" y="288" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_8-_10" >
+        <di:waypoint x="694" y="194" />
+        <di:waypoint x="467" y="315" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_19-_11" >
+        <di:waypoint x="787" y="187" />
+        <di:waypoint x="832" y="289" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_10-_12" >
+        <di:waypoint x="467" y="315" />
+        <di:waypoint x="201" y="187" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_6-_12" >
+        <di:waypoint x="114" y="191" />
+        <di:waypoint x="201" y="187" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_3-_13" >
+        <di:waypoint x="373" y="192" />
+        <di:waypoint x="538" y="191" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_19-_14" >
+        <di:waypoint x="787" y="187" />
+        <di:waypoint x="845" y="109" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_14-_15" >
+        <di:waypoint x="845" y="109" />
+        <di:waypoint x="973" y="107" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_8-_19" >
+        <di:waypoint x="694" y="194" />
+        <di:waypoint x="787" y="187" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_9-_18" >
+        <di:waypoint x="974" y="288" />
+        <di:waypoint x="1083" y="284" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+
+</definitions>

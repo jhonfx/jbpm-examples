@@ -1,0 +1,11 @@
+target/
+bin/
+local/
+MANIFEST.MF
+*~
+.*
+!.gitignore
+*.ipr
+*.iws
+*.iml
+*.tlog

@@ -1,0 +1,10 @@
+package com.sample
+ 
+import com.sample.Usuario;
+ 
+rule "Hello World"
+    when
+        u : Usuario( name:nombre == "pacoto" )
+    then
+        System.out.println( "el usuario es:" + name );        
+end

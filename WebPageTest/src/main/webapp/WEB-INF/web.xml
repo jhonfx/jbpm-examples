@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+	Add Copyright notice here.
+-->
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd" version="2.4">
+	
+	<description>
+     		Welcome to 'Jbpm5WebExample' Environment Test
+  	</description>
+
+	
+	<servlet>
+		<servlet-name>HumanTaskStartupServlet</servlet-name>
+		<servlet-class>com.sample.taskServer.HumanTaskStartUp</servlet-class>
+		 <load-on-startup>1</load-on-startup>
+	</servlet>
+	
+   <servlet>
+		<servlet-name>TaskProcessServlet</servlet-name>
+		<servlet-class>com.sample.ProcessServer.ProcessTaskServlet</servlet-class>
+		 <load-on-startup>2</load-on-startup>
+	</servlet>
+     
+    <servlet-mapping>
+		<servlet-name>HumanTaskStartupServlet</servlet-name>
+		 <url-pattern>/HumanTaskStartUp/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>TaskProcessServlet</servlet-name>
+		 <url-pattern>/ProcessTaskServlet/*</url-pattern>
+	</servlet-mapping>
+	
+	
+	  
+	<context-param>
+		<param-name>registerName</param-name>		
+		<param-value>HumanTaskStartUp</param-value>
+
+		<param-name>registerName</param-name>		
+		<param-value>ProcessTaskServlet</param-value>
+	</context-param>
+	
+
+   <resource-env-ref>
+       <resource-env-ref-name>jdbc/testDS1</resource-env-ref-name> 
+       <resource-env-ref-type>javax.sql.DataSource</resource-env-ref-type> 
+    </resource-env-ref>
+	
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+	<error-page>
+		<error-code>500</error-code>
+		<location>/custError.jsp</location>
+	</error-page>
+
+</web-app>

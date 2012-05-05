@@ -1,0 +1,22 @@
+#created on: 3/05/2012
+package com.demo.itbrain
+import com.sample.Usuario;
+import org.drools.runtime.process.WorkflowProcessInstance;
+
+rule "Your First Rule"
+	ruleflow-group "first_role"
+    when
+    	$process: WorkflowProcessInstance()
+        Usuario(nombre == "pacoto") from $process.getVariable("usuario");
+    then
+        $process.setVariable("validar", "es");
+end
+
+rule "Your Second Rule"
+    ruleflow-group "first_role" 
+    when
+    	$process: WorkflowProcessInstance()
+        Usuario(nombre != "pacoto") from $process.getVariable("usuario");
+    then
+    	$process.setVariable("validar", "noes");
+end

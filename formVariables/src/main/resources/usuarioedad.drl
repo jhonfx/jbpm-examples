@@ -1,0 +1,33 @@
+#created on: 2/05/2012
+package com
+import com.sample.Usuario;
+import org.drools.runtime.process.WorkflowProcessInstance;
+
+#list any import classes here.
+
+
+
+#declare any global variables here
+
+
+
+
+rule "First"
+	ruleflow-group "first_step"
+    when
+       
+       $flujo: WorkflowProcessInstance()       
+       Usuario(e: edad < 30)from $flujo.getVariable("edad")       
+    then
+    	$flujo.setVariable("detalle", "menor");        
+end
+
+rule "Second"
+	ruleflow-group "first_step"
+    when
+       
+       $flujo: WorkflowProcessInstance()       
+       Usuario(e: edad >= 30) from $flujo.getVariable("edad")       
+    then
+    	$flujo.setVariable("detalle", "mayor");        
+end

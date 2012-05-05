@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src/main/java"/>
+	<classpathentry kind="src" path="src/main/resources"/>
+	<classpathentry kind="src" path="src/main/webapp"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="con" path="JBPM/jbpm"/>
+	<classpathentry kind="lib" path="E:/plugins/javax.servlet.jar"/>
+	<classpathentry kind="lib" path="E:/plugins/commons-logging-1.1.1-api.jar"/>
+	<classpathentry kind="lib" path="E:/plugins/h2.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

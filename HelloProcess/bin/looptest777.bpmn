@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<definitions id="Definition"
+             targetNamespace="http://www.jboss.org/drools"
+             typeLanguage="http://www.java.com/javaTypes"
+             expressionLanguage="http://www.mvel.org/2.0"
+             xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd"
+             xmlns:g="http://www.jboss.org/drools/flow/gpd"
+             xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+             xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
+             xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
+             xmlns:tns="http://www.jboss.org/drools">
+
+  <itemDefinition id="_countItem" structureRef="Integer" />
+  <itemDefinition id="_loopconditionItem" structureRef="java.lang.Integer" />
+
+  <process processType="Private" isExecutable="true" id="looptest777" name="looptest777.b" >
+
+    <!-- process variables -->
+    <property id="count" itemSubjectRef="_countItem"/>
+    <property id="loopcondition" itemSubjectRef="_loopconditionItem"/>
+
+    <!-- nodes -->
+    <startEvent id="_1" name="Start" />
+    <scriptTask id="_2" name="Hello" >
+      <script>System.out.println("Count: " +count);
+kcontext.setVariable("count", count);</script>
+    </scriptTask>
+    <scriptTask id="_4" name="Hello Again" >
+      <script>System.out.println("Hello Again");</script>
+    </scriptTask>
+    <exclusiveGateway id="_5" name="Gateway" gatewayDirection="Diverging" />
+    <endEvent id="_6" name="End" >
+        <terminateEventDefinition/>
+    </endEvent>
+    <scriptTask id="_7" name="Hello Back" >
+      <script>System.out.println("Hello back");
+
+count += 1;
+
+System.out.println("count: " + count);
+kcontext.setVariable("count", count);
+</script>
+    </scriptTask>
+    <scriptTask id="_8" name="Hello Post" >
+      <script>System.out.println("Hello Post ");</script>
+    </scriptTask>
+    <exclusiveGateway id="_10" name="Gateway" gatewayDirection="Converging" />
+
+    <!-- connections -->
+    <sequenceFlow id="_1-_2" sourceRef="_1" targetRef="_2" />
+    <sequenceFlow id="_10-_4" sourceRef="_10" targetRef="_4" />
+    <sequenceFlow id="_4-_5" sourceRef="_4" targetRef="_5" />
+    <sequenceFlow id="_8-_6" sourceRef="_8" targetRef="_6" />
+    <sequenceFlow id="_5-_7" sourceRef="_5" targetRef="_7" name="loop back" >
+      <conditionExpression xsi:type="tFormalExpression" >return count &lt; loopcondition;</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_5-_8" sourceRef="_5" targetRef="_8" name="otherwise" >
+      <conditionExpression xsi:type="tFormalExpression" language="http://www.jboss.org/drools/rule" >eval(true)</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_2-_10" sourceRef="_2" targetRef="_10" />
+    <sequenceFlow id="_7-_10" sourceRef="_7" targetRef="_10" />
+
+  </process>
+
+  <bpmndi:BPMNDiagram>
+    <bpmndi:BPMNPlane bpmnElement="looptest777" >
+      <bpmndi:BPMNShape bpmnElement="_1" >
+        <dc:Bounds x="27" y="150" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_2" >
+        <dc:Bounds x="95" y="152" width="80" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_4" >
+        <dc:Bounds x="286" y="205" width="80" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_5" >
+        <dc:Bounds x="411" y="156" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_6" >
+        <dc:Bounds x="609" y="152" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_7" >
+        <dc:Bounds x="287" y="94" width="80" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_8" >
+        <dc:Bounds x="492" y="156" width="80" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_10" >
+        <dc:Bounds x="210" y="154" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="_1-_2" >
+        <di:waypoint x="51" y="174" />
+        <di:waypoint x="135" y="176" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_10-_4" >
+        <di:waypoint x="234" y="178" />
+        <di:waypoint x="326" y="229" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_4-_5" >
+        <di:waypoint x="326" y="229" />
+        <di:waypoint x="435" y="180" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_8-_6" >
+        <di:waypoint x="532" y="180" />
+        <di:waypoint x="633" y="176" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_5-_7" >
+        <di:waypoint x="435" y="180" />
+        <di:waypoint x="327" y="118" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_5-_8" >
+        <di:waypoint x="435" y="180" />
+        <di:waypoint x="532" y="180" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_2-_10" >
+        <di:waypoint x="135" y="176" />
+        <di:waypoint x="234" y="178" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_7-_10" >
+        <di:waypoint x="327" y="118" />
+        <di:waypoint x="234" y="178" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+
+</definitions>

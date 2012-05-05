@@ -1,0 +1,28 @@
+#created on: 20/04/2012
+package sample
+import com.sample.Hour
+
+rule "Hora del desayuno"
+	//ruleflow-group "EvalRuleCondition"
+    when
+        Hour(value >= 6, value < 12)
+    then
+        System.out.println("Buenos dias");
+end
+        
+rule "Hora de la comida"
+	
+	when
+		Hour(value >=12 && <20)
+	then
+		System.out.println("Buenas tardes");
+end
+
+rule "Hora de cenar"
+
+	when
+		$hour:Hour(value >=20 || < 6)
+	then
+		System.out.println("Buenas noches");
+end
+

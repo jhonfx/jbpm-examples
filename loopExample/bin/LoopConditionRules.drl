@@ -1,0 +1,15 @@
+#created on: 4/05/2012
+package com.sample
+import com.sample.HelloProcessModel;
+import org.drools.runtime.process.WorkflowProcessInstance;
+
+rule "NYuser_Rule"
+	no-loop true
+	ruleflow-group "RuleCondition"
+    when
+    	$process: WorkflowProcessInstance()
+        HelloProcessModel( count < 5 ) from $process.getVariable("count");
+    then
+        System.out.println("si pasa la regla");
+
+end

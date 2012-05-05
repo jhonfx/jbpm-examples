@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<definitions id="Definition"
+             targetNamespace="http://www.jboss.org/drools"
+             typeLanguage="http://www.java.com/javaTypes"
+             expressionLanguage="http://www.mvel.org/2.0"
+             xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd"
+             xmlns:g="http://www.jboss.org/drools/flow/gpd"
+             xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+             xmlns:dc="http://www.omg.org/spec/DD/20100524/DC"
+             xmlns:di="http://www.omg.org/spec/DD/20100524/DI"
+             xmlns:tns="http://www.jboss.org/drools">
+
+  <itemDefinition id="_usuarioItem" structureRef="String" />
+
+  <process processType="Private" isExecutable="true" id="com.sample.bpmn.hello" name="Hello World" >
+
+    <!-- process variables -->
+    <property id="usuario" itemSubjectRef="_usuarioItem"/>
+
+    <!-- nodes -->
+    <startEvent id="_1" name="StartProcess" />
+    <scriptTask id="_2" name="Usuario" >
+      <script>System.out.println("El usuario es:" + usuario);</script>
+    </scriptTask>
+    <exclusiveGateway id="_4" name="Gateway" gatewayDirection="Diverging" />
+    <scriptTask id="_5" name="u1" >
+      <script>org.drools.runtime.process.WorkflowProcessInstance flujo = (org.drools.runtime.process.WorkflowProcessInstance)kcontext.getProcessInstance();
+kcontext.getKnowledgeRuntime().insert(flujo);      	
+      </script>
+    </scriptTask>
+    <scriptTask id="_6" name="u2" >
+      <script>System.out.println("Es otro usuario:" + usuario);</script>
+    </scriptTask>
+    <endEvent id="_7" name="End" >
+        <terminateEventDefinition/>
+    </endEvent>
+    <businessRuleTask id="_8" name="define_edad" g:ruleFlowGroup="first_step" >
+    </businessRuleTask>
+    <endEvent id="_10" name="End" >
+        <terminateEventDefinition/>
+    </endEvent>
+    <inclusiveGateway id="_11" name="Gateway" gatewayDirection="Diverging" />
+    <scriptTask id="_12" name="menor" >
+      <script>System.out.println("si es menor");</script>
+    </scriptTask>
+    <scriptTask id="_13" name="mayor" >
+      <script>System.out.println("si es mayorrrrr!!");</script>
+    </scriptTask>
+    <endEvent id="_14" name="End" >
+        <terminateEventDefinition/>
+    </endEvent>
+
+    <!-- connections -->
+    <sequenceFlow id="_1-_2" sourceRef="_1" targetRef="_2" />
+    <sequenceFlow id="_2-_4" sourceRef="_2" targetRef="_4" />
+    <sequenceFlow id="_4-_5" sourceRef="_4" targetRef="_5" name="constraint_u1" tns:priority="1" >
+      <conditionExpression xsi:type="tFormalExpression" >usuario == "paco"
+return usuario</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_4-_6" sourceRef="_4" targetRef="_6" name="constraint_u2" tns:priority="1" >
+      <conditionExpression xsi:type="tFormalExpression" >usuario != "paco"
+return usuario</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_6-_7" sourceRef="_6" targetRef="_7" />
+    <sequenceFlow id="_5-_8" sourceRef="_5" targetRef="_8" />
+    <sequenceFlow id="_12-_10" sourceRef="_12" targetRef="_10" />
+    <sequenceFlow id="_8-_11" sourceRef="_8" targetRef="_11" />
+    <sequenceFlow id="_11-_12" sourceRef="_11" targetRef="_12" name="constraint_menor" tns:priority="1" >
+      <conditionExpression xsi:type="tFormalExpression" >org.drools.runtime.process.WorkflowProcessInstance flujo = (org.drools.runtime.process.WorkflowProcessInstance)kcontext.getProcessInstance();
+return "menor".equals(flujo.getVariable("detalle"));</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_11-_13" sourceRef="_11" targetRef="_13" name="constraint_mayor" tns:priority="1" >
+      <conditionExpression xsi:type="tFormalExpression" >org.drools.runtime.process.WorkflowProcessInstance flujo = (org.drools.runtime.process.WorkflowProcessInstance)kcontext.getProcessInstance();
+return "mayor".equals(flujo.getVariable("detalle"));</conditionExpression>
+    </sequenceFlow>
+    <sequenceFlow id="_13-_14" sourceRef="_13" targetRef="_14" />
+
+  </process>
+
+  <bpmndi:BPMNDiagram>
+    <bpmndi:BPMNPlane bpmnElement="com.sample.bpmn.hello" >
+      <bpmndi:BPMNShape bpmnElement="_1" >
+        <dc:Bounds x="16" y="16" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_2" >
+        <dc:Bounds x="115" y="16" width="80" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_4" >
+        <dc:Bounds x="132" y="108" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_5" >
+        <dc:Bounds x="19" y="186" width="80" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_6" >
+        <dc:Bounds x="209" y="186" width="80" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_7" >
+        <dc:Bounds x="229" y="273" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_8" >
+        <dc:Bounds x="110" y="273" width="80" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_10" >
+        <dc:Bounds x="69" y="503" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_11" >
+        <dc:Bounds x="125" y="360" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_12" >
+        <dc:Bounds x="55" y="434" width="80" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_13" >
+        <dc:Bounds x="180" y="432" width="80" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="_14" >
+        <dc:Bounds x="196" y="505" width="48" height="48" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="_1-_2" >
+        <di:waypoint x="40" y="40" />
+        <di:waypoint x="155" y="40" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_2-_4" >
+        <di:waypoint x="155" y="40" />
+        <di:waypoint x="156" y="132" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_4-_5" >
+        <di:waypoint x="156" y="132" />
+        <di:waypoint x="59" y="210" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_4-_6" >
+        <di:waypoint x="156" y="132" />
+        <di:waypoint x="249" y="210" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_6-_7" >
+        <di:waypoint x="249" y="210" />
+        <di:waypoint x="253" y="297" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_5-_8" >
+        <di:waypoint x="59" y="210" />
+        <di:waypoint x="150" y="297" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_12-_10" >
+        <di:waypoint x="95" y="458" />
+        <di:waypoint x="93" y="527" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_8-_11" >
+        <di:waypoint x="150" y="297" />
+        <di:waypoint x="149" y="384" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_11-_12" >
+        <di:waypoint x="149" y="384" />
+        <di:waypoint x="95" y="458" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_11-_13" >
+        <di:waypoint x="149" y="384" />
+        <di:waypoint x="220" y="456" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="_13-_14" >
+        <di:waypoint x="220" y="456" />
+        <di:waypoint x="220" y="529" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+
+</definitions>

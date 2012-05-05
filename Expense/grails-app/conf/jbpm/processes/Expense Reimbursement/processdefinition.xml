@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<process-definition  xmlns=""  name="Expense Reimbursement">
+    <swimlane name="ROLE_EMPLOYEE"><assignment actor-id="employee"/></swimlane>
+    <swimlane name="ROLE_MANAGER"><assignment actor-id="manager"/></swimlane>
+    <swimlane name="ROLE_ACCOUNTANT"><assignment actor-id="accountant"/></swimlane>
+    
+	<start-state name="New Expense Claim">
+		<task swimlane="ROLE_EMPLOYEE"/>
+		<transition to="Manager Review" name="Submit"/>
+		<transition to="Draft" name="Save As Draft"></transition>
+	</start-state>
+
+	<task-node name="Manager Review">
+		<task swimlane="ROLE_MANAGER"/>
+		<transition to="Settle Claims" name="Approve"/>
+        <transition to="Amend Claim" name="Amend"/>
+		<transition to="Rejected" name="Reject"/>
+	</task-node>
+
+    <task-node name="Amend Claim">
+        <task swimlane="ROLE_EMPLOYEE"/>
+        <transition to="Manager Review" name="Re Submit"/>
+    </task-node>
+    
+	<task-node name="Settle Claims">
+		<task swimlane="ROLE_ACCOUNTANT"/>
+		<transition to="Settled" name="Pay"/>
+		<transition to="Rejected" name="Reject"/>
+	</task-node>
+
+	<task-node name="Draft">
+		<task swimlane="ROLE_EMPLOYEE"/>
+		<transition to="Manager Review" name="Submit"/>
+		<transition to="Deleted" name="Delete"/>
+	</task-node>
+
+	<end-state name="Settled"/>
+	<end-state name="Rejected"/>
+	<end-state name="Deleted"/>
+</process-definition>
